@@ -36,8 +36,6 @@ public class Point {
 	
 	public double getDistanceToLine(Line line) {
 		Line perpLine = line.getPerpendicular(this);
-		System.out.println(perpLine.getM());
-		System.out.println(perpLine.getB());
 		Point intersection = line.getIntersection(perpLine);
 		return this.getDistanceToPoint(intersection);
 	}
