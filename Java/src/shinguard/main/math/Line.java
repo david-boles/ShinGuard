@@ -54,4 +54,17 @@ public class Line {
 		
 		return new Point(pointX, pointY);
 	}
+	
+	public double getY(double x) {
+		return (this.m * x) + this.b;
+	}
+	
+	public double getX(double y) {
+		return (y - this.b)/this.m;
+	}
+	
+	public boolean getHigherOrIntersecting(Point p) {
+		double lineY = this.getY(p.getX());
+		return p.getY() >= lineY;
+	}
 }

@@ -4,12 +4,30 @@ import shinguard.main.math.Line;
 import shinguard.main.math.Point;
 
 public class PositionMapper {
-	Line xAxis = null;
-	Line yAxis = null;
+	Line xAxis;
+	Line yAxis;
+	boolean xAxisPointHigherPositive;
+	boolean yAxisPointHigherPositive;
 	
-	//From center facing opponent, back left = cal0, back right = cal1, front left = cal2
+	//From center facing opponent, back left = cal0, back right = cal1, front left = cal2, origin = back left, lengthwise = y axis
 	public PositionMapper(Point cal0, Point cal1, Point cal2) {
+		this.xAxis = new Line(cal0, cal1);
+		this.yAxis = new Line(cal0, cal2);
+		this.xAxisPointHigherPositive = this.xAxis.getHigherOrIntersecting(cal2);
+		this.yAxisPointHigherPositive = this.yAxis.getHigherOrIntersecting(cal1);
+	}
+	
+	public Point map(Point p) {
+		boolean pointHigherXAxis = this.xAxis.getHigherOrIntersecting(p);
+		boolean pointHigherYAxis = this.yAxis.getHigherOrIntersecting(p);
+		double xDistance = p.getDistanceToLine(this.yAxis);
+		double yDistance = p.getDistanceToLine(this.xAxis);
 		
+		if(this.xAxisPointHigherPositive ^ pointHigherXAxis) {
+			yDistance = yDistance * -1;
+		}
+		
+		//Do yaxix/x val inversion, scaling
 	}
 	
 }
