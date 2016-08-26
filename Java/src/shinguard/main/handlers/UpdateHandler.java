@@ -15,7 +15,7 @@ public class UpdateHandler implements HttpHandler {
 		try {
 			HandlerFs.respondHTML(arg0, 200, "Starting update procedure...");
 			Start.server.stop(0);
-			Runtime.getRuntime().exec("java -jar Start.jar");
+			Runtime.getRuntime().exec("java -jar Updater.jar");
 			System.exit(0);
 		}catch (Exception e) {
 			e.printStackTrace();
