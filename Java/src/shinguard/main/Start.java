@@ -5,17 +5,19 @@ import java.net.InetSocketAddress;
 import com.sun.net.httpserver.HttpServer;
 
 import shinguard.main.handlers.PositionSetHandler;
+import shinguard.main.handlers.UpdateHandler;
 
 public class Start {
 	
-	static HttpServer server;
+	public static HttpServer server;
 	
-	//Room light
 	public static PositionSetHandler positionSetHandler = new PositionSetHandler();
+	public static UpdateHandler updateHandler = new UpdateHandler();
 
 	public static void main(String[] args) {
 		initializeServer();
 		server.createContext("/set_position", positionSetHandler);
+		server.createContext("/update", updateHandler);
 	}
 	
 	static void initializeServer() {
