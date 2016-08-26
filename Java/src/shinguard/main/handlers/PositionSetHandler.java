@@ -35,7 +35,7 @@ public class PositionSetHandler implements HttpHandler {
 			System.out.println("Latitude: " + latiVal);
 			System.out.println("Longitude: " + longVal);
 			
-			HandlerFs.respondHTML(arg0, HandlerFs.CODE_OK, "got it!");
+			HandlerFs.respondHTML(arg0, HandlerFs.CODE_OK, "got it!!!");
 		}catch (Exception e) {
 			System.err.println("Failed decoding position set:");
 			System.err.println(recieved);
