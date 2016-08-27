@@ -36,7 +36,7 @@ public class PositionSetHandler implements HttpHandler {
 			System.out.println("Latitude: " + latiVal);
 			System.out.println("Longitude: " + longVal);
 						
-			HandlerFs.respondHTML(arg0, HandlerFs.CODE_OK, "got it!!");
+			HandlerFs.respondHTML(arg0, HandlerFs.CODE_OK, "got it!");
 			
 			DataManager.registerPosition(idVal, longVal, latiVal);
 		}catch (Exception e) {
