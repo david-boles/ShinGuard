@@ -38,7 +38,7 @@ public class PositionSetHandler implements HttpHandler {
 						
 			HandlerFs.respondHTML(arg0, HandlerFs.CODE_OK, "got it!");
 			
-			DataManager.registerPosition(idVal, longVal, latiVal);
+			DataManager.registerPosition(idVal, latiVal, longVal);
 		}catch (Exception e) {
 			System.err.println("Failed decoding position set:");
 			System.err.println(recieved);
