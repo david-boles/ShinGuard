@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
+import shinguard.main.DataManager;
 import space.davidboles.lib.ht.tp.HandlerFs;
 
 public class PositionSetHandler implements HttpHandler {
@@ -34,8 +35,10 @@ public class PositionSetHandler implements HttpHandler {
 			System.out.println("ID: " + idVal);
 			System.out.println("Latitude: " + latiVal);
 			System.out.println("Longitude: " + longVal);
+						
+			HandlerFs.respondHTML(arg0, HandlerFs.CODE_OK, "got it!!");
 			
-			HandlerFs.respondHTML(arg0, HandlerFs.CODE_OK, "got it!!!");
+			DataManager.registerPosition(idVal, longVal, latiVal);
 		}catch (Exception e) {
 			System.err.println("Failed decoding position set:");
 			System.err.println(recieved);
