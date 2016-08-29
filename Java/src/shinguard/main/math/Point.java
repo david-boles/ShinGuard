@@ -34,9 +34,19 @@ public class Point {
 		return Math.sqrt(Math.pow(point.getX() - this.getX(), 2) + Math.pow(point.getY() - this.getY(), 2));
 	}
 	
-	public double getDistanceToLine(Line line) {
-		Line perpLine = line.getPerpendicular(this);
-		Point intersection = line.getIntersection(perpLine);
+	public Line getIntersectingLine(double slope) {
+		double newM;
+		double newB;
+		
+		newM = slope;
+		newB = -((newM * this.getX()) - this.getY());
+		
+		return new Line(newM, newB);
+	}
+	
+	public double getDistanceToLineAlongSlope(Line line, double slope) {
+		Line intLine = this.getIntersectingLine(slope);
+		Point intersection = line.getIntersection(intLine);
 		return this.getDistanceToPoint(intersection);
 	}
 }

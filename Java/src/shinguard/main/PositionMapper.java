@@ -23,8 +23,8 @@ public class PositionMapper {
 	
 	public Point map(Point p) {
 		//Distances
-		double xDistance = p.getDistanceToLine(this.yAxis);
-		double yDistance = p.getDistanceToLine(this.xAxis);
+		double xDistance = p.getDistanceToLineAlongSlope(this.yAxis, this.xAxis.getM());
+		double yDistance = p.getDistanceToLineAlongSlope(this.xAxis, this.yAxis.getM());
 		
 		//Inversion
 		boolean pointHigherXAxis = this.xAxis.getHigherOrIntersecting(p);
