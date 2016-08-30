@@ -21,7 +21,7 @@ public class DisplayHandler implements HttpHandler {
 			
 			for(int ii = 0; ii < idPoints.size(); ii++) {
 				Point point = idPoints.get(ii);
-				data += " X: " + point.getX() + " Y: " + point.getY() + "<br>";
+				data += " X: " + point.getX() + "<br>Y: " + point.getY() + "<br>";
 			}
 		}
 		HandlerFs.respondHTML(arg0, 200, data);
