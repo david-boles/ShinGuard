@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>Display</title>
+    <link rel="icon" 
+        type="@!-icon.type-!@" 
+        href="@!-icon.location-!@">
+    <style type="text/css">
+    </style>
+  </head>
+
+  <body style="margin:0px;" onresize="render()" onload="render()">
+    <img id="field" src="/field.png" style="position: absolute;">
+    <div id="points"></div>
+
+
+    <script id="renderer">
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+    var origin;//top left in [x, y] window pixels
+    var max;//bottom right in [x, y] field pixels
+    var pointsHTML;
+
+    function render() {
+      w = window.innerWidth-1;
+      h = window.innerHeight-1;
+
+      //Determine origin and max
+      if(w >= (h*1.575)) {//Wider than field aspect ratio
+        origin = [(w-(h*1.575))/2, 0];
+        max = [(h*1.575), h]
+      }else {//Taller than field aspect ratio
+        origin = [0, (h-(w/1.575))/2];
+        max = [w, (w/1.575)]
+      }
+
+      //Resize field
+      field.style.left = origin[0].toString()+"px";
+      field.style.top = origin[1].toString()+"px";
+      field.width = max[0].toString();
+      field.height = max[1].toString();
+
+      //Construct points html
+      pointsHTML = "";
+      //pointsHTML += '<img src="/point.png" style="position: absolute; width: 10px; height: 10px; left: 60px; top: 23px;">';
+      pointsHTML += constructPoint(0.1, 1, 0.5);
+      pointsHTML += constructPoint(0.25, 0.25, 0.5);
+      pointsHTML += constructPoint(1, 0.1, 0.5);
+
+      //Set points html
+      points.innerHTML = pointsHTML;
+    }
+
+
+    function constructPoint(fieldX, fieldY, o) {
+      var out = "";
+      var radius = max[0]/200;
+
+      out += '<img src="/point.png" style="position: absolute; opacity: ';
+      out += o.toString();//Add opacity
+      out += '; width: ';
+      out += (radius*2).toString();//Add width
+      out += 'px; height: ';
+      out += (radius*2).toString();//Add height
+      out += 'px; left: ';
+      out += origin[0] + (fieldY*max[0]) - radius;//Add left
+      out += 'px; top: ';
+      out += origin[1] + (fieldX*max[1]) - radius;//Add top
+      out += 'px;">';
+
+      return out;
+    }
+    </script>
+
+    <script id="updater">
+    function update() {
+      var toParse = httpGet("shinguard.davidboles.space/data").split("\n");
+      
+    }
+
+    function httpGet(theUrl) {
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+      xmlHttp.send( null );
+      return xmlHttp.responseText;
+    }
+    </script>
+
+    <script id="setup">
+    //Var declaration and initilization
+    var field = document.getElementById("field");
+    var points = document.getElementById("points");
+    var pointData = [[]];
+
+    //Function interval setup
+    window.setInterval(function(){
+      update();
+    }, 2000);
+    </script>
+  </body>
+
+</html>
