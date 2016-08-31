@@ -45,9 +45,13 @@
       //Construct points html
       pointsHTML = "";
       //pointsHTML += '<img src="/point.png" style="position: absolute; width: 10px; height: 10px; left: 60px; top: 23px;">';
-      pointsHTML += constructPoint(0.1, 1, 0.5);
-      pointsHTML += constructPoint(0.25, 0.25, 0.5);
-      pointsHTML += constructPoint(1, 0.1, 0.5);
+      // pointsHTML += constructPoint(0.1, 1, 0.5);
+      // pointsHTML += constructPoint(0.25, 0.25, 0.5);
+      // pointsHTML += constructPoint(1, 0.1, 0.5);
+      for(var i = 0; i < pointData.length; i++) {
+        var point = pointData[i];
+        pointsHTML += constructPoint(point[0], point[1], 0.5);
+      }
 
       //Set points html
       points.innerHTML = pointsHTML;
@@ -75,15 +79,22 @@
     </script>
 
     <script id="updater">
+    var toParse;
     function update() {
-      var toParse = httpGet("shinguard.davidboles.space/data").split("\n");
-      
+      toParse = httpGet("/data").split("-");
+
+      pointData = [];
+      for(var pointX = 0; pointX < toParse.length-1; pointX+=2) {
+        pointData.push([toParse[pointX], toParse[pointX+1]]);
+      }
+
+      render();
     }
 
     function httpGet(theUrl) {
       var xmlHttp = new XMLHttpRequest();
       xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
-      xmlHttp.send( null );
+      xmlHttp.send();
       return xmlHttp.responseText;
     }
     </script>
