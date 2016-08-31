@@ -16,12 +16,11 @@ public class DataHandler implements HttpHandler {
 	public void handle(HttpExchange arg0) throws IOException {
 		String data = "";
 		for(int i = 0; i < DataManager.points.size(); i++) {
-			data += "ID: " + DataManager.ids.get(i) + "<br>";
 			ArrayList<Point> idPoints = DataManager.points.get(i);
 			
 			for(int ii = 0; ii < idPoints.size(); ii++) {
 				Point point = idPoints.get(ii);
-				data += " X: " + point.getX() + "<br>Y: " + point.getY() + "<br>";
+				data += point.getX() + "-" + point.getY() + "-";
 			}
 		}
 		HandlerFs.respondHTML(arg0, 200, data);
